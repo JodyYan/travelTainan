@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/insert-json-file-to-database-table', function(){
 	$json = file_get_contents('storage/attractions_zh-tw.json');
-	$objs = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $json), true );
+	$objs = json_decode( $json, true );
 	foreach ($objs as $obj)  {
 		foreach ($obj as $key => $value) {
 			// $insertArr[str_slug($key,'_')] = $value;
@@ -31,5 +31,6 @@ Route::get('/insert-json-file-to-database-table', function(){
 		}
 		DB::table('travels')->insert($insertArr);
 	}
-//	dd("Finished adding data in examples table");
 });
+
+Route::get('/travel', 'TravelController@show');
