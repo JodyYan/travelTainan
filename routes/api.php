@@ -1,5 +1,6 @@
 <?php
 
+use App\Travel;
 use Illuminate\Http\Request;
 
 /*
@@ -15,4 +16,20 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/insert-json-file-to-database-table', function(){
+	$json = file_get_contents('storage/attractions_zh-tw.json');
+	$objs = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $json), true );
+	foreach ($objs as $obj)  {
+		foreach ($obj as $key => $value) {
+			// $insertArr[str_slug($key,'_')] = $value;
+			$insertArr[$key] = $value;
+            if ($key==='services' || $key==='category') {
+                $insertArr[$key]=json_encode($value);
+            }
+		}
+		DB::table('travels')->insert($insertArr);
+	}
+//	dd("Finished adding data in examples table");
 });
