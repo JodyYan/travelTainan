@@ -17,7 +17,7 @@ class CreateTravelsTable extends Migration
             $table->integer('id');
             $table->string('lang');
             $table->string('name');
-            $table->string('summary')->nullable();
+            $table->text('summary')->nullable();
             $table->text('introduction')->nullable();
             $table->string('open_time')->nullable();
             $table->string('district')->nullable();
