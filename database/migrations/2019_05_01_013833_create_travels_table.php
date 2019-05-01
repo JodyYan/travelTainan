@@ -18,7 +18,7 @@ class CreateTravelsTable extends Migration
             $table->string('lang');
             $table->string('name');
             $table->string('summary')->nullable();
-            $table->string('introduction')->nullable();
+            $table->text('introduction')->nullable();
             $table->string('open_time')->nullable();
             $table->string('district')->nullable();
             $table->string('address')->nullable();
@@ -27,8 +27,8 @@ class CreateTravelsTable extends Migration
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
             $table->string('services')->nullable();
-            $table->string('catagory')->nullable();
-            $table->string('update_time')->nullable();
+            $table->string('category')->nullable();
+            $table->dateTime('update_time')->nullable();
         });
     }
 
